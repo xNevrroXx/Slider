@@ -1,0 +1,84 @@
+.slider, .slider2 {
+    width: 650px;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  .slider-counter, .slider2-counter {
+    position: relative;
+    display: flex;
+    width: 180px;
+    align-items: center;
+    font-size: 24px;
+    color: rgba(0, 0, 0, 0.5);
+  }
+  .slider .slider-btnPrev, .slider2 .slider-btnPrev {
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  .slider .slider-btnNext, .slider2 .slider-btnNext {
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  .slider #current, .slider2 #current {
+    font-size: 48px;
+    font-weight: bold;
+    color: black;
+  }
+  .slider .slider-wrapper-long, .slider2 .slider-wrapper-long {
+    position: relative;
+    margin-top: 15px;
+    height: 433px;
+    width: 100%;
+    overflow: hidden;
+    box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.25);
+  }
+  .slider .slider-wrapper, .slider2 .slider-wrapper {
+    position: absolute;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+    transition: all 0.9s cubic-bezier(0.8, 0.9, 0.5, 0.8);
+  }
+  .slider .slide, .slider2 .slide {
+    display: block;
+    width: 650px;
+    height: 100%;
+  }
+  .slider .slide img, .slider2 .slide img {
+    width: 100%;
+    height: 100%;
+  }
+  .slider .slide_active, .slider2 .slide_active {
+    display: block;
+  }
+  .slider .slide_hidden, .slider2 .slide_hidden {
+    display: none;
+  }
+  .slider .slider__nav-dots, .slider2 .slider__nav-dots {
+    z-index: 15;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+  }
+  .slider .slider-dot, .slider2 .slider-dot {
+    box-sizing: content-box;
+    flex: 0 1 auto;
+    width: 30px;
+    height: 6px;
+    margin-right: 3px;
+    margin-left: 3px;
+    cursor: pointer;
+    background-color: #a55454;
+    background-clip: padding-box;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    opacity: 0.5;
+    transition: opacity 0.6s ease;
+  }
+  .slider .slider-dot_active, .slider2 .slider-dot_active {
+    opacity: 1;
+  }
+  
