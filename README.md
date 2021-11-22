@@ -1,4 +1,4 @@
 # Slider
 Slider written only in JS.
 
-For now you should name your containers "slider" or "slider2"
+All selectors are now allowed except the "slider" for your containers.
