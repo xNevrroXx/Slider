@@ -1,17 +1,23 @@
+import {getZero} from "./universalFunctions";
+import {setIndexes} from "./universalFunctions";
+import {toFloatNumber} from "./universalFunctions";
+
 //selectorSlider as string, then as arguments - properties
-String.prototype.slider = function( 
+String.prototype.slider = function(
     { //arguments
     carousel = true, numFirstSlide = 1 , btnPrevSelector = "standartBtn", btnNextSelector = "standartBtn", infinity = false,
     navs = false, counter = true, widthContainerStr, slidesToShow = 1, slidesToScroll = 1, autoplay = false, autoplaySpeed = 2000} ) 
     { //function
     const sliderContainer = document.querySelector(this);
-    sliderContainer.querySelectorAll(`${this} > *`).forEach( contentBlock => {
-        contentBlock.className = "slide";
-    });
+    changeSelectorContainer(this);
+    for(let i = 0; i < sliderContainer.children.length; i++) {
+        sliderContainer.children[i].classList.add("slide");
+    }
+
     createMainDOMStructure();
     
     let indexCurrentSlider = localStorage.getItem(`indexCurrentSlider${this}`) ? +localStorage.getItem(`indexCurrentSlider${this}`) : numFirstSlide,
-        slidesContentArr = document.querySelectorAll(`${this} .slide`), //кол-во элементов(слайдов) в контейнере
+        slidesContentArr = sliderContainer.querySelectorAll(`.slide`), //кол-во элементов(слайдов) в контейнере
         width,
         dotsNav = [],
         dotsNavWrapper,
@@ -29,10 +35,16 @@ String.prototype.slider = function(
             if (counter && (slidesToShow > 1)) {
                 throw new Error("It is not possible to use \"counter\" and \"slidesToShow != 1\" together yet.");
             }
+        },
+        checkSelectorContainer: () => {
+            if(this == ".slider") {
+                throw new Error(`container class must not match ".slider"`);
+            }
         }
     };
     throwErrorsObj.checkNumFirstSlide();
     throwErrorsObj.checkCounter();
+    throwErrorsObj.checkSelectorContainer();
     
     createWholeDOM(this);
     
@@ -44,7 +56,7 @@ String.prototype.slider = function(
     changeContentSlider(this);
 
     slidesContentArr = document.querySelectorAll(`${this} .slider-wrapper > *`);
-    if(infinity) startInfinitySlides(); //Not working now
+    if(infinity) startInfinitySlides();
     setIndexes(slidesContentArr);
     setStyles(this);
 
@@ -75,9 +87,24 @@ String.prototype.slider = function(
 
 
 
-
-
     //functions
+    function changeSelectorContainer() {
+        let countSlidersAtPage;
+        if(!localStorage.getItem("countSlidersAtPage"))  {
+            countSlidersAtPage = 0;
+            localStorage.setItem("countSlidersAtPage", countSlidersAtPage);
+        } else {
+            countSlidersAtPage = localStorage.getItem("countSlidersAtPage");
+        }
+        
+        if(!sliderContainer.classList.contains("slider")) {
+            sliderContainer.classList.add(`slider`); //добавить класс "slider", если класс контейнера не имеет его
+        }
+
+        sliderContainer.id = ++countSlidersAtPage;
+        localStorage.setItem("countSlidersAtPage", countSlidersAtPage);
+    }
+
     function startInfinitySlides() {
         startSlidesContentArr = [...slidesContentArr];
         if(infinity && slidesContentArr.length > 1) {
